@@ -29,6 +29,7 @@
 void operatorControl() {
 	int powerL;
 	int powerR;
+	int intakeSpeed = 100;
 
 	while (1) {
 
@@ -39,6 +40,20 @@ void operatorControl() {
 		//motorSet(3, powerL * 0.9); // set left wheels
 		motorSet(10, powerR * 0.9); // set right wheels
 		//motorSet(5, powerR * 0.9); // set right wheels
+
+		if(joystickGetDigital(1, 6, JOY_UP))
+		{
+			motorSet(2, intakeSpeed);
+		}
+		else if(joystickGetDigital(1, 5, JOY_UP))
+		{
+			motorSet(2, -intakeSpeed);
+		}
+		else
+		{
+			motorSet(2, 0);
+		}
+
 
 
 		delay(20);
