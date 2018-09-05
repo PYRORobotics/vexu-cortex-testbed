@@ -27,8 +27,20 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
+	int powerL;
+	int powerR;
+
 	while (1) {
-		printf("Hello PROS User!\n");
+
+		powerL = joystickGetAnalog(1, 3); // vertical axis on left joystick
+		powerR = joystickGetAnalog(1, 2); // vertical axis on right joystick
+
+		motorSet(1, - powerL * 0.9); // set left wheels
+		//motorSet(3, powerL * 0.9); // set left wheels
+		motorSet(10, powerR * 0.9); // set right wheels
+		//motorSet(5, powerR * 0.9); // set right wheels
+
+
 		delay(20);
 	}
 }
