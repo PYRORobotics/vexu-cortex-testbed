@@ -94,6 +94,8 @@ void initialize();
  */
 void operatorControl();
 
+void BRJoystick(int joystick, int joyChannel);
+
 // End C++ export structure
 #ifdef __cplusplus
 }

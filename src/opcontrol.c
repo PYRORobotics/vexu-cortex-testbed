@@ -26,35 +26,41 @@
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
-void operatorControl() {
+
+void tankDrive()
+{
 	int powerL;
 	int powerR;
 	int intakeSpeed = 100;
 
-	while (1) {
+	powerL = joystickGetAnalog(1, 3); // vertical axis on left joystick
+	powerR = joystickGetAnalog(1, 2); // vertical axis on right joystick
 
-		powerL = joystickGetAnalog(1, 3); // vertical axis on left joystick
-		powerR = joystickGetAnalog(1, 2); // vertical axis on right joystick
+	motorSet(1, - powerL * 0.9); // set left wheels
+	//motorSet(3, powerL * 0.9); // set left wheels
+	motorSet(10, powerR * 0.9); // set right wheels
+	//motorSet(5, powerR * 0.9); // set right wheels
 
-		motorSet(1, - powerL * 0.9); // set left wheels
-		//motorSet(3, powerL * 0.9); // set left wheels
-		motorSet(10, powerR * 0.9); // set right wheels
-		//motorSet(5, powerR * 0.9); // set right wheels
+	if(joystickGetDigital(1, 6, JOY_UP))
+	{
+		motorSet(2, intakeSpeed);
+	}
+	else if(joystickGetDigital(1, 5, JOY_UP))
+	{
+		motorSet(2, -intakeSpeed);
+	}
+	else
+	{
+		motorSet(2, 0);
+	}
+}
 
-		if(joystickGetDigital(1, 6, JOY_UP))
-		{
-			motorSet(2, intakeSpeed);
-		}
-		else if(joystickGetDigital(1, 5, JOY_UP))
-		{
-			motorSet(2, -intakeSpeed);
-		}
-		else
-		{
-			motorSet(2, 0);
-		}
+void operatorControl()
+{
 
-
+	while (1)
+	{
+		tankDrive();
 
 		delay(20);
 	}
