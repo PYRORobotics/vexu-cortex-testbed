@@ -49,5 +49,7 @@ void BRJoystick(int joystick, int joyChannel)
   {
     speed = 0;
   }
+
+  drivetrainSet(speed);
   //return setPoint;
 }

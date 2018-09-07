@@ -8,6 +8,7 @@
  */
 
 #include "main.h"
+#include "BRJoystick.c"
 
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -29,16 +30,20 @@
 
 void tankDrive()
 {
+
+
+
+
 	int powerL;
 	int powerR;
 	int intakeSpeed = 100;
 
-	powerL = joystickGetAnalog(1, 3); // vertical axis on left joystick
-	powerR = joystickGetAnalog(1, 2); // vertical axis on right joystick
+	powerL = abs(joystickGetAnalog(1, 3)) > 20? joystickGetAnalog(1, 3) : 0; // vertical axis on left joystick
+	powerR = abs(joystickGetAnalog(1, 2)) > 20? joystickGetAnalog(1, 2) : 0; // vertical axis on right joystick
 
-	motorSet(1, - powerL * 0.9); // set left wheels
+	motorSet(1, - (0.000035*powerL*powerL*powerL+0.4*powerL)); // set left wheels
 	//motorSet(3, powerL * 0.9); // set left wheels
-	motorSet(10, powerR * 0.9); // set right wheels
+	motorSet(10, 0.000035*powerR*powerR*powerR+0.4*powerR); // set right wheels
 	//motorSet(5, powerR * 0.9); // set right wheels
 
 	if(joystickGetDigital(1, 6, JOY_UP))
@@ -57,10 +62,13 @@ void tankDrive()
 
 void operatorControl()
 {
-
 	while (1)
 	{
+
+
 		tankDrive();
+
+		//BRJoystick(1,3);
 
 		delay(20);
 	}
